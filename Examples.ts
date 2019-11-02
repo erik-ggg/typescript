@@ -3,6 +3,7 @@ import { CarBrands } from "./CarBrands"
 type Discount = {
     code: string;
     percent: number;
+    used?: boolean;
 }
 
 type Car = {
@@ -31,5 +32,24 @@ let car1: Car = {
     brand: CarBrands.BMW
 }
 
+// Coalescing
 console.log(getDiscountWithoutCoalescing(car1));
 console.log(getDiscountWithCoalescing(car1));
+
+// Chaining
+let discount1: Discount = {
+    code: "Example",
+    percent: 15
+}
+
+car1.discount = discount1;
+
+// Without chaining
+let withoutChaining = car1 ? (car1.discount ? car1.discount.used : undefined) : undefined;  // undefined
+// With chaining
+let withChaining = car1 ?.discount ?.used;    // undefined
+let withChaining1 = car1 ?.discount ?.percent;    // 15
+
+console.log(withoutChaining)
+console.log(withChaining)
+console.log(withChaining1)
